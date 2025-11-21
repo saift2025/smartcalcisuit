@@ -2,7 +2,8 @@ import { GoogleGenAI } from "@google/genai";
 
 // Initialize the Gemini API client
 // Note: The API key is expected to be available in the environment variables.
-const apiKey = process.env.API_KEY || '';
+// We add a safe check for 'process' to avoid crashes in browser environments where it might not be polyfilled.
+const apiKey = (typeof process !== 'undefined' && process.env && process.env.API_KEY) ? process.env.API_KEY : '';
 const ai = new GoogleGenAI({ apiKey });
 
 export const getFinancialInsight = async (
